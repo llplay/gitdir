@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link rel="shortcut icon" href="img/favicon_1.ico">
+
+        <title>Velonic - Responsive Admin Dashboard Template</title>
+
+        <!-- Google-Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,600,700,900,400italic' rel='stylesheet'>
+
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-reset.css" rel="stylesheet">
+
+        <!--Animation css-->
+        <link href="css/animate.css" rel="stylesheet">
+
+        <!--Icon-fonts css-->
+        <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="assets/ionicon/css/ionicons.min.css" rel="stylesheet" />
+
+        <!-- Plugins css -->
+        <link href="assets/nestable/jquery.nestable.css" rel="stylesheet" />
+
+
+        <!-- Custom styles for this template -->
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/helper.css" rel="stylesheet">
+        <link href="css/style-responsive.css" rel="stylesheet" />
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+        <!--[if lt IE 9]>
+          <script src="js/html5shiv.js"></script>
+          <script src="js/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+
+
+    <body>
+        <!--Main Content Start -->
+        <section class="content">
+            <!-- Page Content Start -->
+            <!-- ================== -->
+
+            <div class="wraper container-fluid">
+                <div class="page-title"> 
+                    <h3 class="title">Nestable Lists</h3> 
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center" id="nestable_list_menu">
+                            <button type="button" class="btn btn-pink" data-action="expand-all">Expand All</button>
+                            <button type="button" class="btn btn-purple" data-action="collapse-all">Collapse All</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div>
+                            <h4 class="text-muted">Serialised Output (per list)</h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <textarea id="nestable_list_1_output" class=" col-lg-12 form-control"></textarea>
+                            </div>
+                            <div class="col-lg-4">
+                                <textarea id="nestable_list_2_output" class=" col-lg-12 form-control"></textarea>
+                            </div>
+                            <div class="col-lg-4">
+                                <textarea id="nestable_list_3_output" class=" col-lg-12 form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end row -->
+
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"> 
+                                <h3 class="panel-title">Nestable Lists 1</h3> 
+                            </div> 
+                            <div class="panel-body"> 
+                                <div class="dd" id="nestable_list_1">
+                                      <ol class="dd-list">
+                                          <li class="dd-item" data-id="1">
+                                              <div class="dd-handle">Item 1</div>
+                                          </li>
+                                          <li class="dd-item" data-id="2">
+                                              <div class="dd-handle">Item 2</div>
+                                              <ol class="dd-list">
+                                                  <li class="dd-item" data-id="3">
+                                                      <div class="dd-handle">Item 3</div>
+                                                  </li>
+                                                  <li class="dd-item" data-id="4">
+                                                      <div class="dd-handle">Item 4</div>
+                                                  </li>
+                                                  <li class="dd-item" data-id="5">
+                                                      <div class="dd-handle">Item 5</div>
+                                                      <ol class="dd-list">
+                                                          <li class="dd-item" data-id="6">
+                                                              <div class="dd-handle">Item 6</div>
+                                                          </li>
+                                                          <li class="dd-item" data-id="7">
+                                                              <div class="dd-handle">Item 7</div>
+                                                          </li>
+                                                          <li class="dd-item" data-id="8">
+                                                              <div class="dd-handle">Item 8</div>
+                                                          </li>
+                                                      </ol>
+                                                  </li>
+                                                  <li class="dd-item" data-id="9">
+                                                      <div class="dd-handle">Item 9</div>
+                                                  </li>
+                                                  <li class="dd-item" data-id="10">
+                                                      <div class="dd-handle">Item 10</div>
+                                                  </li>
+                                              </ol>
+                                          </li>
+                                          <li class="dd-item" data-id="11">
+                                              <div class="dd-handle">Item 11</div>
+                                          </li>
+                                          <li class="dd-item" data-id="12">
+                                              <div class="dd-handle">Item 12</div>
+                                          </li>
+                                      </ol>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"> 
+                                <h3 class="panel-title">Nestable Lists 2</h3> 
+                            </div> 
+                            <div class="panel-body"> 
+                                <div class="dd" id="nestable_list_2">
+                                      <ol class="dd-list">
+                                          <li class="dd-item" data-id="13">
+                                              <div class="dd-handle">Item 13</div>
+                                          </li>
+                                          <li class="dd-item" data-id="14">
+                                              <div class="dd-handle">Item 14</div>
+                                          </li>
+                                          <li class="dd-item" data-id="15">
+                                              <div class="dd-handle">Item 15</div>
+                                              <ol class="dd-list">
+                                                  <li class="dd-item" data-id="16">
+                                                      <div class="dd-handle">Item 16</div>
+                                                  </li>
+                                                  <li class="dd-item" data-id="17">
+                                                      <div class="dd-handle">Item 17</div>
+                                                  </li>
+                                                  <li class="dd-item" data-id="18">
+                                                      <div class="dd-handle">Item 18</div>
+                                                  </li>
+                                              </ol>
+                                          </li>
+                                      </ol>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <!-- End of row -->
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"> 
+                                <h3 class="panel-title">Nestable Lists 3</h3> 
+                            </div> 
+                            <div class="panel-body"> 
+                                <div class="dd" id="nestable_list_3">
+                                   <table>
+                                      <ol class="dd-list">
+                                         <tr></tr>
+                                          <li class="dd-item dd3-item" data-id="13">
+                                              <div class="dd-handle dd3-handle"></div>
+                                              <div class="dd3-content">Item 13</div>
+                                          </li>
+                                          <li class="dd-item dd3-item" data-id="14">
+                                              <div class="dd-handle dd3-handle"></div>
+                                              <div class="dd3-content">Item 14</div>
+                                          </li>
+                                          <li class="dd-item dd3-item" data-id="15">
+                                              <div class="dd-handle dd3-handle"></div>
+                                              <div class="dd3-content">Item 15</div>
+                                              <ol class="dd-list">
+                                                  <li class="dd-item dd3-item" data-id="16">
+                                                      <div class="dd-handle dd3-handle"></div>
+                                                      <div class="dd3-content">Item 16</div>
+                                                  </li>
+                                                  <li class="dd-item dd3-item" data-id="17">
+                                                      <div class="dd-handle dd3-handle"></div>
+                                                      <div class="dd3-content">Item 17</div>
+                                                  </li>
+                                                  <li class="dd-item dd3-item" data-id="18">
+                                                      <div class="dd-handle dd3-handle"></div>
+                                                      <div class="dd3-content">Item 18</div>
+                                                  </li>
+                                              </ol>
+                                          </li>
+                                      </ol>
+                                      </table>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End row -->
+
+            </div>
+
+            <!-- Page Content Ends -->
+            <!-- ================== -->
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                2015 © Velonic.
+            </footer>
+            <!-- Footer Ends -->
+
+
+
+        </section>
+        <!-- Main Content Ends -->
+        
+
+
+
+    
+        <!-- js placed at the end of the document so the pages load faster -->
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/pace.min.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+
+        <script src="js/jquery.app.js"></script>
+
+        <!--script for this page only-->
+        <script src="assets/nestable/jquery.nestable.js"></script>
+        <script src="assets/nestable/nestable.js"></script>
+
+
+
+    </body>
+</html>
