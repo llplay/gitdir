@@ -198,28 +198,33 @@
    //----- query -----
    //***Step16 页面搜索SQl语句 起始
    $str_query1 = "select * from chatlogs where status";
-
+   $str_query2 = "select sum(counter) as counter  from chatlogs where status";
    if (is_numeric($searchChatLogsStatus))
    {
       $str_query1 = $str_query1 . "=$searchChatLogsStatus ";
+      $str_query2 = $str_query2 . "=$searchChatLogsStatus ";
    }
    else
    {
       $str_query1 = $str_query1 . ">=-1 AND status <=3 ";
+      $str_query2 = $str_query2 . ">=-1 AND status <=3 ";
    }
    
    if (strlen($searchReviewUsername) > 0)
    {
       $str_query1 = $str_query1 . "AND (username1 like '%$searchReviewUsername%' OR username2 like '%$searchReviewUsername%') ";
+      $str_query2 = $str_query2 . "AND (username1 like '%$searchReviewUsername%' OR username2 like '%$searchReviewUsername%') ";
    }
    
    if (strlen($searchReviewfrom) > 0)
    {
       $str_query1 = $str_query1 . "AND (upload_time >= '$searchReviewfrom' ) ";
+      $str_query2 = $str_query2 . "AND (upload_time >= '$searchReviewfrom' ) ";
    }
    if (strlen($searchReviewto) > 0)
    {
       $str_query1 = $str_query1 . "AND (upload_time <= '$searchReviewto' ) ";
+      $str_query2 = $str_query2 . "AND (upload_time <= '$searchReviewto' ) ";
    }
 
    $str_query1 = $str_query1 . "Order by id DESC ";
@@ -229,9 +234,17 @@
    /////////////////////
    // prepare the SQL command and query DB
    /////////////////////
-   if($result = mysqli_query($link, $str_query1)){      
+   $result = mysqli_query($link, $str_query1);      
+   $result2 = mysqli_query($link, $str_query2);      
+//   echo "---$str_query1---";
+//   echo "<br/>";
+//   echo "---$str_query2---";
+//   echo "<br/>";
+   if($result && $result2){      
+//     if($result){      
       $row_number = mysqli_num_rows($result);
-
+      $row_result2 = mysqli_fetch_assoc($result2);
+      $all_counter = $row_result2["counter"];
       //4.return string of the refreshed Pages
       //----- Print Search Pages -----
       $return_string = "";
@@ -239,7 +252,8 @@
       $page_size = PAGE_SIZE;
       
       $return_string = $return_string . "<div id=\"sResultTitle\" class=\"sResultTitle\">查询结果 : 共有 <span>" 
-                                      . number_format($row_number) 
+             //                         . number_format($row_number) 
+                                      . number_format($all_counter) 
                                       . "</span> 笔数据符合查询条件</div>";
       if ($row_number > SEARCH_SIZE)
          $row_number = SEARCH_SIZE;
@@ -253,7 +267,7 @@
       {
          for ($i = 0; $i < $page_num; $i++)
          {
-            $return_string = $return_string . "<span class=\"search_chatreview_page";
+            $return_string = $return_string . "<span class=\"search_rebotprofile_page";
             if ($i + 1 == $page_default_no)
                $return_string = $return_string . " active";
             //***Step6 function name ==> clickSearchNewsPage
@@ -262,9 +276,9 @@
       }
       //***Step7 function name ==> expandSearchNewsContentFunc
       $return_string = $return_string . "</span>"
-                       . "<span class=\"btn ChatReviewExpandSR\" OnClick=\"expandSearchChatReviewContentFunc();\">显示过长内容</span>"
-                       . "</div>";                   
-      
+                       . "<span class=\"btn ChatReviewExpandSR\" OnClick=\"expandSearchChatReviewContentFunc();\">显示过长内容</span>&nbsp;&nbsp;"                  
+      . "<span class=\"btn ChatReviewDownbtn\" OnClick=\"downloadCFunc();\">下载Csv</span>&nbsp;&nbsp;"
+         . "</div>";
       //----- Print Search Tables -----
       //***Step8 Field name and field number must be modified. begin
       //Be care of colspan=7 
@@ -374,7 +388,8 @@
                   . "<td>$upload_time</td>"
                   . "<td>$StatusStr</br>"
                   . "$reviewer</td>"
-                  . "<td><A OnClick=\"modifySearchChatReview($ChatId);\">评审</A></td>"
+                  . "<td><A OnClick=\"modifySearchChatReview($ChatId);\">评审</A><br/>"
+                  . "<A OnClick=\"deleteSearchChatReview($ChatId);\">删除</A><br/></td>"
                   . "</tr>";
 
                $i++;
@@ -398,7 +413,8 @@
 
 
       $return_string = $return_string . "<div class=\"toolMenu\">"
-                        . "<span class=\"btn ChatReviewExpandSR\" OnClick=\"expandSearchChatReviewContentFunc();\">显示过长内容</span>"
+         . "<span class=\"btn ChatReviewExpandSR\" OnClick=\"expandSearchChatReviewContentFunc();\">显示过长内容</span>&nbsp;&nbsp;"
+         . "<span class=\"btn ChatReviewDownbtn\" OnClick=\"downloadCFunc();\">下载Csv</span>&nbsp;&nbsp;"
                         . "<span class=\"paging\">";
       
       //----- Print Search Pages -----
@@ -406,7 +422,7 @@
       {
          for ($i = 0; $i < $page_num; $i++)
          {
-            $return_string = $return_string . "<span class=\"search_chatreview_page";
+            $return_string = $return_string . "<span class=\"search_rebotprofile_page";
             if ($i + 1 == $page_default_no)
                $return_string = $return_string . " active";
             $return_string = $return_string . "\" id=search_chatreview_page_end_no_" . ($i + 1) . " OnClick=clickSearchChatReviewPage(this," . ($i + 1) . ");>" . ($i + 1) . "</span>";

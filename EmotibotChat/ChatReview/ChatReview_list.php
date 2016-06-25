@@ -1,4 +1,21 @@
 <script type="text/javascript">
+
+ function downloadCFunc(){
+       var searchChatUsername = document.getElementById("searchChatUsername").value;
+       var searchReviewfrom = document.getElementsByName("searchReviewfrom")[0].value;
+       var searchReviewto = document.getElementsByName("searchReviewto")[0].value;
+       var statusCheckbox = document.getElementsByName("searchChatLogsStatus")[0].value;
+    
+          
+       var str;                            //送出内文字串  
+       
+       //ajax
+       str = "cmd=downC" + "&searchChatUsername=" + encodeURIComponent(searchChatUsername) + "&searchReviewfrom=" + searchReviewfrom
+            + "&searchReviewto=" + searchReviewto + "&statusCheckbox=" + statusCheckbox;
+       url_str = "ChatReview/ChatReview_down.php?";
+       window.open(url_str + str);
+    }
+
    //***Step5 expand search Result table
    function expandSearchChatReviewContentFunc() {
       if ($('span.ChatReviewUser, span.ChatReviewRobot, span.ChatReviewTopic').hasClass('fixWidth')) {
@@ -46,12 +63,12 @@
    }
 
    //***Step10 列表中动作删除Ajax呼叫
-   function deleteSearchChatReview(RFId) {
+   function deleteSearchChatReview(ChatId) {
       ret = confirm("确定要删除此对话吗?");
       if (!ret)
          return;
       //ajax
-      str = "cmd=deleteChatReview" + "&" + "RFId=" + RFId;
+      str = "cmd=deleteChatReview" + "&" + "ChatId=" + ChatId;
       url_str = "ChatReview/ChatReview_delete.php?";
 
       //alert(str);
@@ -96,13 +113,13 @@
       nPage = document.getElementsByName("search_chatreview_page_no")[0].value;
       document.getElementsByName("search_chatreview_page_no")[0].value = n;
       str = "search_chatreview_page_begin_no_" + nPage;
-      document.getElementById(str).className = "search_chatreview_page";
+      document.getElementById(str).className = "search_rebotprofile_page";
       str = "search_chatreview_page_end_no_" + nPage;
-      document.getElementById(str).className = "search_chatreview_page";
+      document.getElementById(str).className = "search_rebotprofile_page";
       str = "search_chatreview_page_begin_no_" + n;
-      document.getElementById(str).className = "search_chatreview_page active";
+      document.getElementById(str).className = "search_rebotprofile_page active";
       str = "search_chatreview_page_end_no_" + n;
-      document.getElementById(str).className = "search_chatreview_page active";
+      document.getElementById(str).className = "search_rebotprofile_page active";
 
       //clear current table
       str = "search_chatreview_page" + nPage;

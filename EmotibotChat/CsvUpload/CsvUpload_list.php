@@ -68,6 +68,12 @@
            
           <!--  <input name="searchPath" type="button" value="选择路径"> -->
             </td>
+           <th>
+               <td colspan="2"><label>
+                  公司名</label>
+                 <input name="inputCompanyName" type="text" >
+                
+           </th>
            <!-- <th>状态 ：</th>
             <td colspan="3"><label>
                <input id="searchRFCheckBox1" type="checkbox" checked>

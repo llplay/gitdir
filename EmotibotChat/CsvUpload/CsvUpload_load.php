@@ -1,5 +1,4 @@
 <?php
-
    require_once("../PHPExcel/Classes/PHPExcel.php");
    define("FILE_NAME", "../DB.conf");
    define("DELAY_SEC", 3);
@@ -177,6 +176,7 @@
    $result;                 //query result
    $row;                    //1 data array
    $return_string;
+   $lastInsertId;
    //1.get information from client 
 //   $excelPath=="./test.xlsx"// $_POST["excelPath"];
 //   if (strlen($chatId) > 0 )
@@ -226,7 +226,13 @@
          return FileFormat_Error;
    }
    
-   
+    $companyname=trim($_POST["inputCompanyName"]);
+    if(strlen($companyname)<=0)
+    {
+        print_r("公司名称不为空");
+        return ;
+    }
+
 
    $link = @mysqli_connect(DB_HOST, ADMIN_ACCOUNT, ADMIN_PASSWORD, CONNECT_DB);
    mysqli_set_charset ($link,"utf8");
@@ -237,17 +243,35 @@
        return;
    }
 
-   if (($ret = read_excel_and_insert_into_database($target_file)) != SUCCESS)
-   {
-   //    $file_status->status = $ret;
-   //    if ($ret == ERR_UPDATE_DATABASE)
-   //    {
-   //        array_push($file_status->errors, array("sheet"=>0, "lines"=>0, "message"=>MSG_ERR_UPDATE_DATA    BASE));
-   //    }
-   //    else if ($ret == ERR_INSERT_DATABASE)
-   //    {
-   //        array_push($file_status->errors, array("sheet"=>0, "lines"=>0, "message"=>MSG_ERR_INSERT_DATA    BASE));
-   //    }
+   $upload_time = date("Y-m-d H:i:s");
+   $str_insert_query = "insert into insertdetails(company,status,upload_time) values ('$companyname',1,'$upload_time')";
+   $result_insert_query = mysqli_query($link, $str_insert_query);
+   $str_lastid_query = "select last_insert_id() as id";
+   $result_lastid_query = mysqli_query($link, $str_lastid_query);
+   if($result_insert_query && $result_lastid_query){
+
+      $row_lastid = mysqli_fetch_assoc($result_lastid_query);
+      $lastInsertId = $row_lastid["id"];
+      if (($ret = read_excel_and_insert_into_database($target_file)) != SUCCESS)
+      {
+      //    $file_status->status = $ret;
+      //    if ($ret == ERR_UPDATE_DATABASE)
+      //    {
+      //        array_push($file_status->errors, array("sheet"=>0, "lines"=>0, "message"=>MSG_ERR_UPDATE_DATA    BASE));
+      //    }
+      //    else if ($ret == ERR_INSERT_DATABASE)
+      //    {
+      //        array_push($file_status->errors, array("sheet"=>0, "lines"=>0, "message"=>MSG_ERR_INSERT_DATA    BASE));
+      //    }
+      }
+   }
+   else{
+      echo "--$str_insert_query--";
+      echo "<br/>";
+      echo "--$str_lastid_query--";
+      echo "<br/>";
+      echo "insert record error";
+      return;
    }
 
 
@@ -266,7 +290,7 @@
 
    function read_excel_and_insert_into_database($target_file)
    {
-
+      global $companyname;
       $PHPReader = new PHPExcel_Reader_Excel2007();
       if(!($PHPReader->canRead($target_file)))
       {
@@ -359,7 +383,8 @@
                       // echo eval('return '.iconv('gbk','utf-8',var_export($arr[1],true)).';')."<br>";
                  //  } 
             // }
-          
+             $tmp[0]=trim($tmp[0]);
+             $tmp[1]=trim($tmp[1]);
              if(strlen($tmp[1])==0)
              {
                 if(strlen($tmp[0])==0)
@@ -390,14 +415,14 @@
                 {
                    //   echo "不空空";
                    //
-                  if($chatid==-1 && $topic=="")
+                  if($chatid==-1 && $topic=="" && currentcount==0) 
                   {
                     $topic=$tmp[0];
                     $chatid=insert_chatlogs_database($topic);
                   }
                   else
                   {
-                     if(insert_chatdetails_database($chatid,"用户",$tmp[0]))
+                     if(insert_chatdetails_database($chatid,$companyname."用户",$tmp[0]))
                      {
                           //  echo "insert 用户 success";
                          $currentcount++;
@@ -409,10 +434,18 @@
              }
              else if(strlen($tmp[0])==0)
              {
-                 if(insert_chatdetails_database($chatid,"机器人扮演者",$tmp[1]))
-                 {
-                    $currentcount++;
-                 }
+                if($chatid==-1 && $topic=="" && currentcount==0)
+                {
+                      $topic=$tmp[1];
+                      $chatid=insert_chatlogs_database($topic);
+                }
+                else
+                {
+                   if(insert_chatdetails_database($chatid,$companyname."机器人",$tmp[1]))
+                   {
+                      $currentcount++;
+                   }
+                }
              }
              else if($tmp[0]=="用户" && $tmp[1]=="机器人扮演者")
              {
@@ -424,12 +457,12 @@
                 if($chatid>0)
                 {
                  //  echo "detail insert...";
-                   if(insert_chatdetails_database($chatid,"用户",$tmp[0]))
+                   if(insert_chatdetails_database($chatid,$companyname."用户名",$tmp[0]))
                    {
                     //  echo "insert 用户 success";
                        $currentcount++;
                    }
-                   if(insert_chatdetails_database($chatid,"机器人扮演者",$tmp[1]))
+                   if(insert_chatdetails_database($chatid,$companyname."机器人",$tmp[1]))
                    {
                     //  echo "insert 机器人扮演者 success";
                       $currentcount++;
@@ -455,17 +488,19 @@
 
    function insert_chatlogs_database($topicname)
    {
+      global $companyname;
+      global $lastInsertId;
       $topicname = $topicname;
-      $username1 = "用户";
+      $username1 = $companyname."用户名";
       $qq1 = "";
-      $username2 = "机器人扮演者";
+      $username2 = $companyname."机器人";
       $qq2 = "";
       $create_time = date("Y-m-d H:i:s");
      
       $counter = 0;
       $status = 11;
     
-      $str_insert = "insert into chatlogs(topic,username1,qq1,username2,qq2,create_time,counter,status) values('$topicname','$username1','$qq1','$username2','$qq2','$create_time',$counter,$status)";
+      $str_insert = "insert into chatlogs(topic,username1,qq1,username2,qq2,create_time,counter,status,insertindex) values('$topicname','$username1','$qq1','$username2','$qq2','$create_time',$counter,$status,$lastInsertId)";
       //echo "$str_insert";
       //echo "$topicname";
       //return;

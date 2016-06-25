@@ -136,11 +136,12 @@
             <td>
             <Textarea name="chatId" cols=10 rows=1></Textarea>
             </td>
+         </tr>
       </table>
-     <table>
-     <th>对话格式 ：</th>
-     <td colspan="3"><label>
-        <Select name="dialogMethond">
+     <table class="searchField" border="0" cellspacing="0" cellpadding="0">
+     <th>对话格式 ：  </th>
+     <td colspan="4"><label>
+        <Select name="dialogMethod">
            <Option value="1">QQ</Option>
            <Option value="-1">WeChat</Option>
         </Select>
@@ -154,11 +155,12 @@
             <td>
               <textarea name="chatContent" style="width:600px;height:400px;"></textarea>
             </td>
+        </tr>
       </table>
+      <table class="searchField" border="0" cellspacing="0" cellpadding="0">
         <tr>
               <input  type="submit" value="保存">
         </tr>
-      <table class="searchField" border="0" cellspacing="0" cellpadding="0">
       </table>
    </form>
    <!-- ***Step2 搜索框的设计 结束 -->

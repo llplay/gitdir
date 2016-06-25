@@ -2131,7 +2131,921 @@ $(function()
    //***Step22 searchTopics_user begin
    $('.btn_submit_new.searchTopics_user').click(function()
    {
-      //alert("123");
+      alert("123");
+      console.log("Sample log");
+      var searchTopics_name = document.getElementById("searchTopics_name").value;
+    
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchTopics_user" + "&searchTopics_name=" + encodeURIComponent(searchTopics_name);
+      url_str = "Topics_user/Topics_user_load.php?";
+      
+      //alert(url_str + str);
+      //return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            // alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchTopics_userPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchTopics end
+   //***Step22 searchTopics_user begin
+   $('.btn_submit_new.searchDelRecord').click(function()
+   {
+//      alert("123");
+      //console.log("Sample log");
+      var searchCompany = document.getElementById("searchCompany").value;
+    
+      var str;                            //送出内文字串  
+      
+      //ajax
+      var searchReviewfrom = "";
+      var searchReviewto = "";
+      //var searchReviewfrom = document.getElementsByName("searchReviewfrom")[0].value;
+      //var searchReviewto = document.getElementsByName("searchReviewto")[0].value;
+      var strselect = "";
+      
+      var str;                            //送出内文字串  
+     
+      //ajax
+      str = "cmd=searchCompany" 
+           + "&searchCompany=" + encodeURIComponent(searchCompany) 
+           + "&searchReviewfrom=" + searchReviewfrom 
+           + "&searchReviewto=" + searchReviewto;
+      url_str = "DelRecord/DelRecord_load.php?";
+      
+      //alert(url_str + str);
+      //return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            // alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchDelRecordPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  //alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchTopics end
+   //***Step22 searchQQNumbers begin
+   $('.btn_submit_new.searchQQNumbers').click(function()
+   {
+      var searchQQ = document.getElementById("searchQQ").value;
+   
+      var statusCheckbox = 0;
+      if (document.getElementById("searchRFCheckBox1").checked == true)
+      {
+         statusCheckbox += 1; 
+      }
+      if (document.getElementById("searchRFCheckBox2").checked == true)
+      {
+         statusCheckbox += 2; 
+      }
+      
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchQQNumbers" + "&searchQQ=" + encodeURIComponent(searchQQ) + "&statusCheckbox=" + statusCheckbox;
+      url_str = "QQNumbers/QQNumbers_load.php?";
+      
+      //alert(url_str + str);
+      //return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            // alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchQQNumbersPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchQQNumbers end
+    
+   //***Step22 searchExcel_Upload  begin
+  /* $('.btn_submit_new.searchExcel_Upload').click(function()
+   {
+         var searchExcelPath = document.getElementById("searchExcelPath").value;
+   
+         var str;                            //送出内文字串  
+    
+         //ajax
+        str = "cmd=searchExcelPathcmd" + "&searchExcelPath" + encodeURIComponent(searchExcelPath);
+        url_str = "ExcelUpload/ExcelUpload_load.php?";
+    
+        //alert(url_str + str);
+        //return;
+        $('#loadingWrap').show();
+        $.ajax
+        ({
+             beforeSend: function()
+             {
+               // alert(url_str + str);
+             },
+             type: 'GET',
+             url: url_str + str,
+             cache: false,
+             success: function(res)
+             {
+               //alert(res);
+               $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+               {
+                  if (!res.match(/^-\d+$/))  //success
+                  {
+                    // document.getElementById("searchQQNumbersPages").innerHTML = res;
+                  }
+                  else  //failed
+                 { 
+                     //echo "1.0";
+                     alert(MSG_SEARCH_ERROR);
+                  }
+               });
+            },
+            error: function(xhr)
+            {
+               alert("ajax error: " + xhr.status + " " + xhr.statusText);
+           }
+         });
+      });*/
+   //***Step22 searchExcel_Upload end
+
+   //***Step22 searchTops begin
+   $('.btn_submit_new.searchTop').click(function()
+   {
+      var searchTopfrom24 = document.getElementsByName("searchTopfrom24")[0].value;
+      var searchTopto24 = document.getElementsByName("searchTopto24")[0].value;
+      var searchTopUserName = document.getElementById("searchTopUserName").value;
+      
+      //状态
+      var searchDesc = 0;
+      if (document.getElementById("searchDesc2").checked == true)
+      {
+         searchDesc = 1; 
+      }
+      
+      var searchType = 0;
+      if (document.getElementById("searchType2").checked == true)
+      {
+         searchType = 1; 
+      }
+      
+      if (document.getElementById("searchType3").checked == true)
+      {
+         searchType = 2; 
+      }
+      
+      if (document.getElementById("searchType4").checked == true)
+      {
+         searchType = 3; 
+      }
+      
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchTop" + "&searchTopfrom24=" + searchTopfrom24 + "&searchTopto24=" + searchTopto24 + "&searchDesc=" + searchDesc
+                            + "&searchTopUserName=" + encodeURIComponent(searchTopUserName) + "&searchType=" + searchType + "&W=0";
+      url_str = "Top/Top_load.php?";
+      
+      //alert(url_str + str);
+      //return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            //alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchTopPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchTops end
+   
+   //***Step22 searchWTops begin
+   $('.btn_submit_new.searchWTop').click(function()
+   {
+      var searchTopfrom24 = document.getElementsByName("searchTopfrom24")[0].value;
+      var searchTopto24 = document.getElementsByName("searchTopto24")[0].value;
+      var searchTopUserName = document.getElementById("searchTopUserName").value;
+      
+      //状态
+      var searchDesc = 0;
+      if (document.getElementById("searchDesc2").checked == true)
+      {
+         searchDesc = 1; 
+      }
+      
+      var searchType = 0;
+      if (document.getElementById("searchType2").checked == true)
+      {
+         searchType = 1; 
+      }
+      
+      if (document.getElementById("searchType3").checked == true)
+      {
+         searchType = 2; 
+      }
+      
+      if (document.getElementById("searchType4").checked == true)
+      {
+         searchType = 3; 
+      }
+      
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchTop" + "&searchTopfrom24=" + searchTopfrom24 + "&searchTopto24=" + searchTopto24 + "&searchDesc=" + searchDesc
+                            + "&searchTopUserName=" + encodeURIComponent(searchTopUserName) + "&searchType=" + searchType + "&W=1";
+      url_str = "Top/Top_load.php?";
+      
+      //alert(url_str + str);
+      //return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            //alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchTopPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchWTops end
+   
+   //***Step22 searchCorpusSupplement begin
+   $('.btn_submit_new.searchCorpusSupplement').click(function()
+   {
+      var searchCorpusSupplementfrom1 = document.getElementsByName("searchCorpusSupplementfrom1")[0].value;
+      var searchCorpusSupplementto1 = document.getElementsByName("searchCorpusSupplementto1")[0].value;
+      var searchCorpusSupplementQ = document.getElementById("searchCorpusSupplementQ").value;
+      
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchCS" + "&searchCSfrom1=" + searchCorpusSupplementfrom1 + "&searchCSto1=" + searchCorpusSupplementto1
+                            + "&searchCSQ=" + encodeURIComponent(searchCorpusSupplementQ);
+      url_str = "CorpusSupplement/CorpusSupplement_load.php?";
+      
+      // alert(url_str + str);
+      // return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            //alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchCorpusSupplementPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchCorpusSupplement end
+
+   //***Step22 searchFaceImages begin
+   $('.btn_submit_new.searchFaceImages').click(function()
+   {
+      var searchFaceImagesfrom23 = document.getElementsByName("searchFaceImagesfrom23")[0].value;
+      var searchFaceImagesto23 = document.getElementsByName("searchFaceImagesto23")[0].value;
+      
+      //是否微笑
+      var searchSmileRadio = 0;
+      if (document.getElementById("searchSmileRadio1").checked == true)
+      {
+         searchSmileRadio = 1; 
+      }
+      
+      if (document.getElementById("searchSmileRadio2").checked == true)
+      {
+         searchSmileRadio = 2; 
+      }
+      
+      //性别
+      var searchMaleRadio = 0;
+      if (document.getElementById("searchMaleRadio1").checked == true)
+      {
+         searchMaleRadio = 1; 
+      }
+      
+      if (document.getElementById("searchMaleRadio2").checked == true)
+      {
+         searchMaleRadio = 2; 
+      }
+      
+      //是否头像
+      var searchHumanRadio = 0;
+      if (document.getElementById("searchHumanRadio1").checked == true)
+      {
+         searchHumanRadio = 1; 
+      }
+      
+      if (document.getElementById("searchHumanRadio2").checked == true)
+      {
+         searchHumanRadio = 2; 
+      }
+      
+      //是否同一人
+      var searchFlagRadio = 0;
+      if (document.getElementById("searchFlagRadio1").checked == true)
+      {
+         searchFlagRadio = 1; 
+      }
+      
+      if (document.getElementById("searchFlagRadio2").checked == true)
+      {
+         searchFlagRadio = 2; 
+      }
+      
+      //状态
+      var searchStatusRadio = 0;
+      if (document.getElementById("searchStatusRadio1").checked == true)
+      {
+         searchStatusRadio = 1; 
+      }
+      
+      if (document.getElementById("searchStatusRadio2").checked == true)
+      {
+         searchStatusRadio = 2; 
+      }
+      
+      
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchFaceImages" + "&searchFaceImagesfrom23=" + searchFaceImagesfrom23 + "&searchFaceImagesto23=" + searchFaceImagesto23
+         + "&searchStatusRadio=" + searchStatusRadio + "&searchFlagRadio=" +　searchFlagRadio　+ "&searchHumanRadio=" + searchHumanRadio
+         + "&searchMaleRadio=" + searchMaleRadio + "&searchSmileRadio=" + searchSmileRadio;
+      url_str = "FaceImage/FaceImages_load.php?";
+      
+      // alert(url_str + str);
+      // return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            // alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchFaceImagesPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchFaceImages end
+   
+   //***Step22 searchWeChatVoices begin
+   $('.btn_submit_new.searchWeChatVoices').click(function()
+   {
+      var searchWeChatVoicesfrom1 = document.getElementsByName("searchWeChatVoicesfrom1")[0].value;
+      var searchWeChatVoicesto1 = document.getElementsByName("searchWeChatVoicesto1")[0].value;
+      
+      //男女
+      var searchGenderRadio = 0;
+      if (document.getElementById("searchWeChatGenderRadio1").checked == true)
+      {
+         searchGenderRadio = 1; 
+      }
+      
+      if (document.getElementById("searchWeChatGenderRadio2").checked == true)
+      {
+         searchGenderRadio = 2; 
+      }
+      
+      //状态
+      var searchStatusRadio = 0;
+      if (document.getElementById("searchWeChatStatusRadio1").checked == true)
+      {
+         searchStatusRadio = 1; 
+      }
+      
+      if (document.getElementById("searchWeChatStatusRadio2").checked == true)
+      {
+         searchStatusRadio = 2; 
+      }
+      
+      
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchWeChatVoices" + "&searchWeChatVoicesfrom1=" + searchWeChatVoicesfrom1 + "&searchWeChatVoicesto1=" + searchWeChatVoicesto1
+         + "&searchStatusRadio=" + searchStatusRadio + "&searchGenderRadio=" +　searchGenderRadio;
+      url_str = "WeChatVoice/WeChatVoice_load.php?";
+      
+      // alert(url_str + str);
+      // return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            // alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchWeChatVoicesPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchWeChatVoices end
+   
+   //***Step22 searchAppVoices begin
+   $('.btn_submit_new.searchAppVoices').click(function()
+   {
+      var searchNickName = document.getElementsByName("searchNickName")[0].value;
+      var searchAppVoicesfrom2 = document.getElementsByName("searchAppVoicesfrom2")[0].value;
+      var searchAppVoicesto2 = document.getElementsByName("searchAppVoicesto2")[0].value;
+      
+      //男女
+      var searchGenderRadio = 0;
+      if (document.getElementById("searchAppGenderRadio1").checked == true)
+      {
+         searchGenderRadio = 1; 
+      }
+      
+      if (document.getElementById("searchAppGenderRadio2").checked == true)
+      {
+         searchGenderRadio = 2; 
+      }
+      
+      //状态
+      var searchStatusRadio = 0;
+      if (document.getElementById("searchAppStatusRadio1").checked == true)
+      {
+         searchStatusRadio = 1; 
+      }
+      
+      if (document.getElementById("searchAppStatusRadio2").checked == true)
+      {
+         searchStatusRadio = 2; 
+      }
+      
+      
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchAppVoices" + "&searchAppVoicesfrom2=" + searchAppVoicesfrom2 + "&searchAppVoicesto2=" + searchAppVoicesto2
+         + "&searchStatusRadio=" + searchStatusRadio + "&searchGenderRadio=" +　searchGenderRadio + "&searchNickName=" + searchNickName;
+      url_str = "AppVoice/AppVoice_load.php?";
+      
+      // alert(url_str + str);
+      // return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            // alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchAppVoicesPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchWeChatVoices end
+   
+   //***Step22 searchWeChatCheck begin
+   $('.btn_submit_new.searchWeChatCheck').click(function()
+   {
+      var searchNickName = document.getElementById("searchNickName").value;
+      var searchWeChatCheckfrom1 = document.getElementsByName("searchWeChatCheckfrom1")[0].value;
+      var searchWeChatCheckto1 = document.getElementsByName("searchWeChatCheckto1")[0].value;
+      
+      var statusCheckbox = 0;
+      if (document.getElementById("searchWeChatCheckBox1").checked == true)
+      {
+         statusCheckbox += 1; 
+      }
+      if (document.getElementById("searchWeChatCheckBox2").checked == true)
+      {
+         statusCheckbox += 2; 
+      }
+      
+      
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchWeChatCheck" + "&searchWeChatCheckfrom1=" + searchWeChatCheckfrom1 + "&searchWeChatCheckto1=" + searchWeChatCheckto1
+         + "&statusCheckbox=" + statusCheckbox + "&searchNickName=" +　encodeURIComponent(searchNickName);
+      url_str = "WeChatCheck/WeChatCheck_load.php?";
+      
+      // alert(url_str + str);
+      // return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            // alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchWeChatCheckPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchWeChatCheck end
+   
+   //***Step22 searchWeChatImages begin
+   $('.btn_submit_new.searchWeChatImages').click(function()
+   {
+      var searchWeChatImagesfrom25 = document.getElementsByName("searchWeChatImagesfrom25")[0].value;
+      var searchWeChatImagesto25 = document.getElementsByName("searchWeChatImagesto25")[0].value;
+      
+      //是否同一人
+      var searchFlagRadio = 0;
+      if (document.getElementById("searchFlagRadio1").checked == true)
+      {
+         searchFlagRadio = 1; 
+      }
+      
+      if (document.getElementById("searchFlagRadio2").checked == true)
+      {
+         searchFlagRadio = 2; 
+      }
+      
+      //状态
+      var searchStatusRadio = 0;
+      if (document.getElementById("searchStatusRadio1").checked == true)
+      {
+         searchStatusRadio = 1; 
+      }
+      
+      if (document.getElementById("searchStatusRadio2").checked == true)
+      {
+         searchStatusRadio = 2; 
+      }
+      
+      
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchWeChatImages" + "&searchWeChatImagesfrom25=" + searchWeChatImagesfrom25 + "&searchWeChatImagesto25=" + searchWeChatImagesto25
+         + "&searchStatusRadio=" + searchStatusRadio + "&searchFlagRadio=" +　searchFlagRadio;
+      url_str = "WeChatImage/WeChatImage_load.php?";
+      
+      // alert(url_str + str);
+      // return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            // alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchWeChatImagesPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchWeChatImages end
+   
+   
+   //***Step22 searchTopics begin
+   $('.btn_submit_new.searchTopics').click(function()
+   {
+    //  alert("123");
+      var searchTopics = document.getElementById("searchTopics").value;
+   
+      var statusCheckbox = 0;
+      if (document.getElementById("searchTopicsCheckBox1").checked == true)
+      {
+         statusCheckbox += 1; 
+      }
+      if (document.getElementById("searchTopicsCheckBox2").checked == true)
+      {
+         statusCheckbox += 2; 
+      }
+      
+      var str;                            //送出内文字串  
+      
+      //ajax
+      str = "cmd=searchTopics" + "&searchTopics=" + encodeURIComponent(searchTopics)
+            + "&statusCheckbox=" + statusCheckbox;
+      url_str = "Topics/Topics_load.php?";
+      
+      //alert(url_str + str);
+      //return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            // alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+            //alert(res);
+            $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+            {
+               if (!res.match(/^-\d+$/))  //success
+               {
+                  document.getElementById("searchTopicsPages").innerHTML = res;
+               }
+               else  //failed
+               {  
+                  //echo "1.0";
+                  alert(MSG_SEARCH_ERROR);
+               }
+            });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchTopics end
+   
+   //***Step22 searchLoadDialog begin
+   $('.btn_submit_new.searchLoadDialog').click(function()
+   {
+      // alert("123");
+      var chatId = document.getElementById("chatId").value;
+   
+      var DialogContent = document.getElementById("chatContent").value;
+      alert(DialogContent);
+      var str;                            //送出内文字串  
+      //ajax
+     // alert(DialogContent);
+      str = "cmd=searchLoadDialog" + "&chatId=" + encodeURIComponent(chatId)
+            + "&chatContent=" + DialogContent;
+      url_str = "LoadDialog/LoadDialog_load.php?";
+      //alert(url_str+str)
+      //alert(url_str + str);
+      //return;
+      $('#loadingWrap').show();
+      $.ajax
+      ({
+         beforeSend: function()
+         {
+            // alert(url_str + str);
+         },
+         type: 'GET',
+         url: url_str + str,
+         cache: false,
+         success: function(res)
+         {
+         //   //alert(res);
+         //   $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
+         //   {
+         //      if (!res.match(/^-\d+$/))  //success
+         //      {
+         //         document.getElementById("searchLoadDialogPages").innerHTML = res;
+         //      }
+         //      else  //failed
+         //      {  
+         //         //echo "1.0";
+         //         alert(MSG_SEARCH_ERROR);
+         //      }
+         //   });
+         },
+         error: function(xhr)
+         {
+            alert("ajax error: " + xhr.status + " " + xhr.statusText);
+         }
+      });
+   });
+   //***Step22 searchTopics end
+   //***Step22 searchTopics_user begin
+   $('.btn_submit_new.searchTopics_user').click(function()
+   {
+      alert("123");
+      console.log("Sample log");
       var searchTopics_name = document.getElementById("searchTopics_name").value;
     
       var str;                            //送出内文字串  
@@ -2901,7 +3815,7 @@ $(function()
          cache: false,
          success: function(res)
          {
-            //alert(res);
+//            alert(res);
             $('#loadingWrap').delay(D_LOADING).fadeOut('slow', function()
             {
                if (!res.match(/^-\d+$/))  //success

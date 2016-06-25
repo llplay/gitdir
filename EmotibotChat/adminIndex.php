@@ -195,6 +195,7 @@
    echo "<li id=2><a href='javascript:void(0)'><span class='tabIcon QQ'></span><span class='nav-label'>用户管理</span></a></li>";
    echo "<li id=3><a href='javascript:void(0)'><span class='tabIcon QQ'></span><span class='nav-label'>对话审核</span></a></li>";
    echo "<li id=4><a href='javascript:void(0)'><span class='tabIcon QQ'></span><span class='nav-label'>Excel上传</span></a></li>";
+   echo "<li id=5><a href='javascript:void(0)'><span class='tabIcon QQ'></span><span class='nav-label'>批量删除</span></a></li>";
 ?>
                      </ul>
                   </li>
@@ -260,6 +261,10 @@
 
    echo "<div class='container2 searchNewsC 1' style='display:none;'>";
    include("CsvUpload/CsvUpload_list.php");
+   echo "</div>";
+
+   echo "<div class='container2 searchNewsC' style='display:none;'>";
+   include("DelRecord/DelRecord_list.php");
    echo "</div>";
 ?>
             </div>
